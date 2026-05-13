@@ -21,6 +21,8 @@ tekst z gry i przekazuje go do czytnika ekranu.
   NVDA Controller, jesli jest dolaczona do paczki.
 - `mods\modWither3Access` - script mod WitcherScript ladowany przez gre.
 - `tools\install-release.ps1` - skrypt instalacyjny dla tej paczki.
+- `INSTALL.md` - krotka instrukcja pobrania ZIP-a z GitHuba, rozpakowania
+  i skopiowania plikow do folderu gry.
 
 Nowe w 0.3.alfa:
 
@@ -47,6 +49,18 @@ C:\Program Files (x86)\GOG Galaxy\Games\The Witcher 3 Wild Hunt
 ```
 
 ## Instalacja automatyczna
+
+Z GitHuba pobierz paczke:
+
+```text
+dist\Wither3.access-0.3.alfa.zip
+```
+
+Rozpakuj ja do dowolnego folderu, np.:
+
+```text
+C:\Users\<twoj_uzytkownik>\Downloads\Wither3.access-0.3.alfa
+```
 
 Z rozpakowanego folderu projektu albo paczki uruchom:
 
@@ -257,11 +271,28 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\build-script-mod.ps1
 
 ## Paczka wydania
 
-Lokalna paczka wydania dla tej wersji jest tworzona jako:
+Paczka wydania dla tej wersji jest trzymana w repozytorium jako:
 
 ```text
 dist\Wither3.access-0.3.alfa.zip
 ```
 
-Mozna ja wrzucic recznie na GitHub Releases albo rozpakowac lokalnie i uzyc
-`tools\install-release.ps1`.
+Zawiera gotowy uklad do rozpakowania:
+
+```text
+Witcher3AccessibleLauncher.exe
+Wither3Access\
+mods\modWither3Access\
+tools\install-release.ps1
+README.md
+INSTALL.md
+VERSION
+```
+
+Paczke mozna odnowic z aktualnych plikow repo poleceniem:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\build-release-package.ps1
+```
+
+Po rozpakowaniu szczegolowe kroki sa w `INSTALL.md`.

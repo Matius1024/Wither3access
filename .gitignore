@@ -1,4 +1,5 @@
 vendor/*.dll
+!vendor/nvdaControllerClient64.dll
 logs/
 runtime/
 config/game_language.override.txt
