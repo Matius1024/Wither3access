@@ -1,4 +1,4 @@
-# Wither3.access 0.3.alfa
+# Wither3.access 0.4.alfa
 
 Wither3.access to prototyp bezpiecznego moda dostepnosciowego do
 The Witcher 3: Wild Hunt na PC. Celem tej wersji jest uruchomienie gry
@@ -9,7 +9,7 @@ Mod nie patchuje plikow DRM i nie zmienia binarek gry. Czesc w grze jest
 zwyklym script modem w folderze `mods`, a zewnetrzny bridge tylko odbiera
 tekst z gry i przekazuje go do czytnika ekranu.
 
-## Co jest w wersji 0.3.alfa
+## Co jest w wersji 0.4.alfa
 
 - `Witcher3AccessibleLauncher.exe` - launcher do wklejenia bezposrednio do
   folderu gry. Pomija RED/GOG launcher i uruchamia `witcher3.exe`.
@@ -24,12 +24,16 @@ tekst z gry i przekazuje go do czytnika ekranu.
 - `INSTALL.md` - krotka instrukcja pobrania ZIP-a z GitHuba, rozpakowania
   i skopiowania plikow do folderu gry.
 
-Nowe w 0.3.alfa:
+Nowe w 0.4.alfa:
 
 - szybszy odczyt podswietlenia menu po strzalkach gora/dol;
 - stabilniejsze sledzenie ruchu przy przytrzymaniu klawisza;
 - pierwsze wysylanie realnej listy elementow panelu `Opcje`;
 - proba wykrywania listy aktualnego podmenu opcji przez `id`/`tag`;
+- aktualne wartosci suwakow po powrocie na dana opcje;
+- pelne nazwy opcji, podmenu i poziomow trudnosci;
+- przywracanie polskich znakow w odczycie bridge'a;
+- synchronizacja odczytu z rzeczywista pozycja kursora po `Esc` z podmenu opcji;
 - dodatkowe logi diagnostyczne `SubmenuRequest` i `SubmenuNotFound`.
 
 ## Wymagania
@@ -53,13 +57,13 @@ C:\Program Files (x86)\GOG Galaxy\Games\The Witcher 3 Wild Hunt
 Z GitHuba pobierz paczke:
 
 ```text
-dist\Wither3.access-0.3.alfa.zip
+dist\Wither3.access-0.4.alfa.zip
 ```
 
 Rozpakuj ja do dowolnego folderu, np.:
 
 ```text
-C:\Users\<twoj_uzytkownik>\Downloads\Wither3.access-0.3.alfa
+C:\Users\<twoj_uzytkownik>\Downloads\Wither3.access-0.4.alfa
 ```
 
 Z rozpakowanego folderu projektu albo paczki uruchom:
@@ -259,7 +263,7 @@ Odnowienie i instalacja script moda do folderu gry:
 powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\build-script-mod.ps1 -Deploy
 ```
 
-## Ograniczenia 0.3.alfa
+## Ograniczenia 0.4.alfa
 
 - To jest pierwsza realna warstwa UI, a nie kompletna dostepnosc calej gry.
 - Menu glowne i pierwsza warstwa opcji korzystaja z prawdziwych eventow gry,
@@ -274,7 +278,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\build-script-mod.ps1
 Paczka wydania dla tej wersji jest trzymana w repozytorium jako:
 
 ```text
-dist\Wither3.access-0.3.alfa.zip
+dist\Wither3.access-0.4.alfa.zip
 ```
 
 Zawiera gotowy uklad do rozpakowania:

@@ -1,4 +1,4 @@
-# Instalacja Wither3.access 0.3.alfa z GitHuba
+# Instalacja Wither3.access 0.4.alfa z GitHuba
 
 Ten projekt jest paczka moda dostepnosciowego do The Witcher 3: Wild Hunt na
 Windows. Najprostsza instalacja polega na pobraniu ZIP-a z katalogu `dist`,
@@ -9,13 +9,13 @@ rozpakowaniu go i uruchomieniu skryptu instalacyjnego.
 Z repozytorium GitHub pobierz:
 
 ```text
-dist/Wither3.access-0.3.alfa.zip
+dist/Wither3.access-0.4.alfa.zip
 ```
 
 Rozpakuj ZIP do dowolnego tymczasowego folderu, na przyklad:
 
 ```text
-C:\Users\<twoj_uzytkownik>\Downloads\Wither3.access-0.3.alfa
+C:\Users\<twoj_uzytkownik>\Downloads\Wither3.access-0.4.alfa
 ```
 
 Po rozpakowaniu w folderze powinny byc miedzy innymi:
