@@ -13,7 +13,7 @@ function W3Access_Speak(text : string)
 
 	if(text != "")
 	{
-		text = W3Access_SanitizeLogText(text);
+		text = W3Access_AsciiLogText(text);
 		LogChannel('W3ACCESS', "W3ACCESS|" + text);
 
 		configWrapper = (CInGameConfigWrapper)theGame.GetInGameConfigWrapper();
@@ -61,7 +61,7 @@ function W3Access_MenuItemsReady(items : CScriptedFlashArray, title : string)
 		return;
 	}
 
-	LogChannel('W3ACCESS', "W3ACCESS_MENU|BEGIN|" + W3Access_EscapeMenuToken(title));
+	LogChannel('W3ACCESS', "W3ACCESS_MENU|BEGIN|" + W3Access_EscapeMenuToken(W3Access_GetKnownMenuLabel(title)));
 
 	for(index = 0; index < items.GetLength(); index += 1)
 	{
@@ -107,7 +107,7 @@ function W3Access_GetMenuArrayLabel(items : CScriptedFlashArray, index : int) : 
 	label = items.GetElementFlashString(index);
 	if(label != "")
 	{
-		return label;
+		return W3Access_GetKnownMenuLabel(label);
 	}
 
 	return "";
@@ -122,26 +122,101 @@ function W3Access_GetMenuItemLabel(item : CScriptedFlashObject) : string
 		return "";
 	}
 
+	label = W3Access_GetMenuItemConfigLabel(item);
+	if(label != "") return label;
 	label = item.GetMemberFlashString("label");
-	if(label != "") return label;
+	if(label != "") return W3Access_GetKnownMenuLabel(label);
 	label = item.GetMemberFlashString("name");
-	if(label != "") return label;
+	if(label != "") return W3Access_GetKnownMenuLabel(label);
 	label = item.GetMemberFlashString("title");
-	if(label != "") return label;
+	if(label != "") return W3Access_GetKnownMenuLabel(label);
 	label = item.GetMemberFlashString("text");
-	if(label != "") return label;
+	if(label != "") return W3Access_GetKnownMenuLabel(label);
 	label = item.GetMemberFlashString("slotName");
-	if(label != "") return label;
+	if(label != "") return W3Access_GetKnownMenuLabel(label);
 	label = item.GetMemberFlashString("saveName");
-	if(label != "") return label;
+	if(label != "") return W3Access_GetKnownMenuLabel(label);
 	label = item.GetMemberFlashString("keybindName");
-	if(label != "") return label;
+	if(label != "") return W3Access_GetKnownMenuLabel(label);
 	label = item.GetMemberFlashString("actionName");
-	if(label != "") return label;
+	if(label != "") return W3Access_GetKnownMenuLabel(label);
 	label = item.GetMemberFlashString("inputName");
-	if(label != "") return label;
+	if(label != "") return W3Access_GetKnownMenuLabel(label);
 	label = item.GetMemberFlashString("id");
-	if(label != "") return label;
+	if(label != "") return W3Access_GetKnownMenuLabel(label);
+
+	return "";
+}
+
+function W3Access_GetKnownMenuLabel(label : string) : string
+{
+	if(label == "")
+	{
+		return "";
+	}
+
+	if(StrContains(label, "Wczytaj gr")) return "Wczytaj gre";
+	if(StrContains(label, "Wyjd")) return "Wyjdz";
+	if(StrContains(label, "Od pocz")) return "Od poczatku";
+	if(StrContains(label, "Po prostu opowie")) return "Po prostu opowiesc";
+	if(StrContains(label, "Miecz i opowie")) return "Miecz i opowiesc";
+	if(StrContains(label, "Krew, pot i")) return "Krew, pot i lzy";
+	if(StrContains(label, "Droga ku zag")) return "Droga ku zagladzie";
+	if(StrContains(label, "Ustawienia d")) return "Ustawienia dzwieku";
+	if(StrContains(label, "Wyb")) return "Wybor jezyka";
+	if(StrContains(label, "Wszystkie d")) return "Wszystkie dzwieki";
+	if(StrContains(label, "Tw")) return "Tworcy";
+	if(StrContains(label, "Odwr") && StrContains(label, "nie wp")) return "Odwrocenie kamery nie wplywa na celowanie";
+	if(StrContains(label, "Czu")) return "Czulosc";
+	if(StrContains(label, "Odwr")) return "Odwrocenie kamery";
+	if(StrContains(label, "Intensywno")) return "Intensywnosc efektow adaptacyjnych";
+	if(StrContains(label, "Zamie")) return "Zamien przyciski akceptuj i anuluj";
+	if(StrContains(label, "Adaptacyjne efekty")) return "Adaptacyjne efekty triggerow";
+	if(StrContains(label, "[Tylko kontroler] Sprint po wci")) return "Tylko kontroler. Sprint po wcisnieciu lewego drazka";
+
+	return label;
+}
+
+function W3Access_GetMenuItemConfigLabel(item : CScriptedFlashObject) : string
+{
+	var configWrapper : CInGameConfigWrapper;
+	var candidateId : string;
+	var candidateTag : int;
+	var groupIdx : int;
+	var varIdx : int;
+	var groupsNum : int;
+	var varsNum : int;
+	var groupName : name;
+	var currentName : name;
+
+	configWrapper = (CInGameConfigWrapper)theGame.GetInGameConfigWrapper();
+	if(!configWrapper || !item)
+	{
+		return "";
+	}
+
+	candidateId = item.GetMemberFlashString("id");
+	candidateTag = item.GetMemberFlashUInt("tag");
+	if(candidateId == "" && candidateTag == 0)
+	{
+		return "";
+	}
+
+	groupsNum = configWrapper.GetGroupsNum();
+	for(groupIdx = 0; groupIdx < groupsNum; groupIdx += 1)
+	{
+		groupName = configWrapper.GetGroupName(groupIdx);
+		varsNum = configWrapper.GetVarsNumByGroupName(groupName);
+		for(varIdx = 0; varIdx < varsNum; varIdx += 1)
+		{
+			currentName = configWrapper.GetVarNameByGroupName(groupName, varIdx);
+			if((candidateId != "" && candidateId == NameToString(currentName)) ||
+				(candidateTag != 0 && candidateTag == NameToFlashUInt(currentName)))
+			{
+				return W3Access_GetOptionLabel(groupName, currentName);
+			}
+		}
+	}
 
 	return "";
 }
@@ -664,6 +739,12 @@ function W3Access_GetOptionLabel(groupName : name, optionName : name) : string
 	var displayName : string;
 	var label : string;
 
+	label = W3Access_GetOptionAsciiLabel(groupName, optionName);
+	if(label != "")
+	{
+		return label;
+	}
+
 	configWrapper = (CInGameConfigWrapper)theGame.GetInGameConfigWrapper();
 	if(configWrapper)
 	{
@@ -685,6 +766,56 @@ function W3Access_GetOptionLabel(groupName : name, optionName : name) : string
 	}
 
 	return W3Access_LocalizeName(optionName);
+}
+
+function W3Access_GetOptionAsciiLabel(groupName : name, optionName : name) : string
+{
+	var optionKey : string;
+
+	optionKey = NameToString(optionName);
+
+	if(groupName == 'Audio')
+	{
+		if(StrContains(optionKey, "Music")) return "Muzyka";
+		if(StrContains(optionKey, "SFX") || StrContains(optionKey, "Effect")) return "Efekty";
+		if(StrContains(optionKey, "Voice") || StrContains(optionKey, "Dialog")) return "Dialogi";
+		if(StrContains(optionKey, "Dynamic")) return "Zakres dynamiki";
+		if(StrContains(optionKey, "Master") || StrContains(optionKey, "Volume")) return "Wszystkie dzwieki";
+	}
+
+	if(optionName == 'GameDifficulty' || optionName == 'Difficulty') return "Poziom trudnosci";
+	if(optionName == 'HudTutorialEnabled') return "Samouczki";
+	if(optionName == 'Subtitles') return "Napisy";
+	if(optionName == 'Virtual_Localization_text') return "Jezyk napisow";
+	if(optionName == 'Virtual_Localization_speech') return "Jezyk dialogow";
+
+	if(optionName == 'MouseSensitivity') return "Czulosc myszy";
+	if(optionName == 'UIMouseSensitivity') return "Czulosc kursora";
+	if(optionName == 'RightStickCameraSensitivity') return "Czulosc kamery kontrolera";
+	if(optionName == 'RightStickAimSensitivity') return "Czulosc celowania kontrolera";
+	if(optionName == 'FreeCameraSensitivity') return "Czulosc wolnej kamery";
+	if(optionName == 'InvertCameraXOnMouse') return "Odwrocenie kamery w osi X, mysz";
+	if(optionName == 'InvertCameraYOnMouse') return "Odwrocenie kamery w osi Y, mysz";
+	if(optionName == 'InvertCameraX') return "Odwrocenie kamery w osi X, kontroler";
+	if(optionName == 'InvertCameraY') return "Odwrocenie kamery w osi Y, kontroler";
+	if(optionName == 'CameraAutoRotX') return "Automatyczne obracanie kamery w osi X";
+	if(optionName == 'CameraAutoRotY') return "Automatyczne obracanie kamery w osi Y";
+	if(optionName == 'LeftStickSprint') return "Tylko kontroler. Sprint po wcisnieciu lewego drazka";
+	if(optionName == 'PadVibrationEnabled') return "Wibracje";
+	if(optionName == 'PadVibrationAmount') return "Intensywnosc wibracji";
+	if(optionName == 'AdaptiveTriggersEnabled') return "Adaptacyjne efekty triggerow";
+	if(optionName == 'AdaptiveTriggersAmount') return "Intensywnosc efektow adaptacyjnych";
+	if(optionName == 'SwapAcceptCancel') return "Zamien przyciski akceptuj i anuluj";
+	if(optionName == 'AlternativeRadialMenuInputMode') return "Alternatywne menu szybkiego wyboru";
+
+	if(optionName == 'EnableAlternateSignCasting') return "Alternatywne rzucanie znakow";
+	if(optionName == 'AutoApplyBladeOils') return "Automatyczne nakladanie olejow";
+	if(optionName == 'EnableUberMovement') return "Alternatywny tryb ruchu";
+	if(optionName == 'EnableAlternateExplorationCamera') return "Alternatywna kamera eksploracji";
+	if(optionName == 'EnableAlternateCombatCamera') return "Alternatywna kamera walki";
+	if(optionName == 'EnableAlternateHorseCamera') return "Alternatywna kamera konna";
+
+	return "";
 }
 
 function W3Access_GetOptionValueLabel(groupName : name, optionName : name, optionValue : string) : string
@@ -767,9 +898,15 @@ function W3Access_FormatSliderValue(groupName : name, optionName : name, optionV
 
 function W3Access_EscapeMenuToken(value : string) : string
 {
-	value = W3Access_SanitizeLogText(value);
+	value = W3Access_AsciiLogText(value);
 	value = StrReplaceAll(value, "%", "%25");
 	value = StrReplaceAll(value, "|", "%7C");
+	return value;
+}
+
+function W3Access_AsciiLogText(value : string) : string
+{
+	value = W3Access_SanitizeLogText(value);
 	return value;
 }
 
