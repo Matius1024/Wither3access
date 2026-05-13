@@ -1,0 +1,30 @@
+Patch target:
+
+content/content0/scripts/game/gui/menus/menuBase.ws
+
+Goal:
+
+Publish real menu selection changes from the game UI to the passive
+screen-reader bridge. This patch is intentionally tiny; it does not
+change menu navigation and does not send input.
+
+In event `OnModuleSelected( moduleID : int, moduleBindingName : string )`,
+after:
+
+	UISavedData.selectedModule = moduleID;
+
+add:
+
+	W3Access_MenuSelected(GetMenuName(), moduleID, moduleBindingName);
+
+In event `OnInputHandled(NavCode:string, KeyCode:int, ActionId:int)`,
+for early diagnostics only, add:
+
+	W3Access_Speak("Input " + NavCode + ". Key " + KeyCode + ". Action " + ActionId);
+
+Notes:
+
+- `moduleBindingName` may be an internal id rather than localized text.
+- Next step is to map ids to localized labels or hook the specific Flash data
+  arrays where labels and values are constructed.
+- Use Script Merger if another mod also patches `menuBase.ws`.

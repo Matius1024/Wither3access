@@ -1,0 +1,365 @@
+{
+  "locale": "en-US",
+  "target_processes": [
+    "witcher3.exe"
+  ],
+  "target_titles": [
+    "The Witcher 3"
+  ],
+  "start_menu": "main",
+  "messages": {
+    "ready_wait": "The Witcher 3 access companion started. When the main menu is visible, press F12.",
+    "companion_ready_format": "The Witcher 3 access companion started. {0}",
+    "config_reloaded_format": "Configuration reloaded. {0}",
+    "config_reload_failed_format": "Could not reload configuration. {0}",
+    "mouse_mode_on": "Mouse mode on.",
+    "mouse_mode_off": "Mouse mode off.",
+    "no_label": "Unlabeled item",
+    "no_items": "No menu items",
+    "position_format": "{0} of {1}",
+    "list_format": "{0}. Items: {1}.",
+    "main_menu": "Main menu.",
+    "activate_format": "Activating: {0}.",
+    "missing_submenu_format": "{0}. Missing submenu model {1}.",
+    "value_change_format": "{0}. Changed value: {1}.",
+    "left": "left",
+    "right": "right",
+    "mouse_position_format": "Mouse position: x {0:0.000}, y {1:0.000}.",
+    "mouse_position_failed": "Could not read mouse position.",
+    "calibration_point_format": "Click point: {0}. x {1:0.000}, y {2:0.000}.",
+    "companion_exit": "Companion closing.",
+    "game_closed": "Game closed. Companion closing.",
+    "game_not_started": "Game did not start. Companion closing."
+  },
+  "menus": {
+    "main": {
+      "title": "Main menu",
+      "items": [
+        {
+          "label": "Continue",
+          "action": "continue"
+        },
+        {
+          "label": "New Game",
+          "enter": "new_game"
+        },
+        {
+          "label": "Load Game",
+          "enter": "load_game"
+        },
+        {
+          "label": "Options",
+          "enter": "options"
+        },
+        {
+          "label": "Downloadable Content",
+          "enter": "dlc"
+        },
+        {
+          "label": "My Rewards",
+          "action": "my_rewards"
+        },
+        {
+          "label": "Credits",
+          "action": "credits"
+        },
+        {
+          "label": "Exit",
+          "enter": "exit_confirm"
+        }
+      ]
+    },
+    "new_game": {
+      "title": "New Game",
+      "items": [
+        {
+          "label": "Just the Story",
+          "action": "new_game_difficulty"
+        },
+        {
+          "label": "Story and Sword",
+          "action": "new_game_difficulty"
+        },
+        {
+          "label": "Blood and Broken Bones",
+          "action": "new_game_difficulty"
+        },
+        {
+          "label": "Death March",
+          "action": "new_game_difficulty"
+        },
+        {
+          "label": "Back",
+          "back": true
+        }
+      ]
+    },
+    "load_game": {
+      "title": "Load Game",
+      "items": [
+        {
+          "label": "Save list. Use arrows to choose a save.",
+          "action": "dynamic_list"
+        },
+        {
+          "label": "Load selected save",
+          "action": "load_selected"
+        },
+        {
+          "label": "Delete selected save",
+          "action": "delete_selected"
+        },
+        {
+          "label": "Back",
+          "back": true
+        }
+      ]
+    },
+    "options": {
+      "title": "Options",
+      "items": [
+        {
+          "label": "Gameplay",
+          "enter": "gameplay"
+        },
+        {
+          "label": "Display",
+          "enter": "display"
+        },
+        {
+          "label": "Graphics",
+          "enter": "graphics"
+        },
+        {
+          "label": "Audio",
+          "enter": "audio"
+        },
+        {
+          "label": "Controls",
+          "enter": "controls"
+        },
+        {
+          "label": "Language",
+          "enter": "language"
+        },
+        {
+          "label": "Back",
+          "back": true
+        }
+      ]
+    },
+    "gameplay": {
+      "title": "Gameplay options",
+      "items": [
+        {
+          "label": "Difficulty",
+          "left_right": true
+        },
+        {
+          "label": "Tutorials",
+          "left_right": true
+        },
+        {
+          "label": "Automatic sword drawing",
+          "left_right": true
+        },
+        {
+          "label": "Alternative character appearance",
+          "left_right": true
+        },
+        {
+          "label": "Back",
+          "back": true
+        }
+      ]
+    },
+    "display": {
+      "title": "Display options",
+      "items": [
+        {
+          "label": "Gamma",
+          "left_right": true
+        },
+        {
+          "label": "Fullscreen",
+          "left_right": true
+        },
+        {
+          "label": "Resolution",
+          "left_right": true
+        },
+        {
+          "label": "VSync",
+          "left_right": true
+        },
+        {
+          "label": "Maximum frames per second",
+          "left_right": true
+        },
+        {
+          "label": "Back",
+          "back": true
+        }
+      ]
+    },
+    "graphics": {
+      "title": "Graphics options",
+      "items": [
+        {
+          "label": "Graphics quality preset",
+          "left_right": true
+        },
+        {
+          "label": "Ray tracing",
+          "left_right": true
+        },
+        {
+          "label": "Texture quality",
+          "left_right": true
+        },
+        {
+          "label": "Shadow quality",
+          "left_right": true
+        },
+        {
+          "label": "Grass density",
+          "left_right": true
+        },
+        {
+          "label": "Apply",
+          "action": "apply"
+        },
+        {
+          "label": "Back",
+          "back": true
+        }
+      ]
+    },
+    "audio": {
+      "title": "Audio options",
+      "items": [
+        {
+          "label": "Master volume",
+          "left_right": true
+        },
+        {
+          "label": "Music",
+          "left_right": true
+        },
+        {
+          "label": "Sound effects",
+          "left_right": true
+        },
+        {
+          "label": "Dialogue",
+          "left_right": true
+        },
+        {
+          "label": "Dynamic range mode",
+          "left_right": true
+        },
+        {
+          "label": "Back",
+          "back": true
+        }
+      ]
+    },
+    "controls": {
+      "title": "Controls",
+      "items": [
+        {
+          "label": "Control scheme",
+          "left_right": true
+        },
+        {
+          "label": "Camera sensitivity",
+          "left_right": true
+        },
+        {
+          "label": "Invert Y axis",
+          "left_right": true
+        },
+        {
+          "label": "Key bindings",
+          "enter": "keybindings"
+        },
+        {
+          "label": "Back",
+          "back": true
+        }
+      ]
+    },
+    "keybindings": {
+      "title": "Key bindings",
+      "items": [
+        {
+          "label": "List of actions and assigned keys. Use arrows, Enter changes a key.",
+          "action": "dynamic_key_list"
+        },
+        {
+          "label": "Restore defaults",
+          "action": "restore_defaults"
+        },
+        {
+          "label": "Back",
+          "back": true
+        }
+      ]
+    },
+    "language": {
+      "title": "Language",
+      "items": [
+        {
+          "label": "Subtitle language",
+          "left_right": true
+        },
+        {
+          "label": "Voice language",
+          "left_right": true
+        },
+        {
+          "label": "Subtitles",
+          "left_right": true
+        },
+        {
+          "label": "Back",
+          "back": true
+        }
+      ]
+    },
+    "dlc": {
+      "title": "Downloadable Content",
+      "items": [
+        {
+          "label": "Hearts of Stone",
+          "action": "dlc_info"
+        },
+        {
+          "label": "Blood and Wine",
+          "action": "dlc_info"
+        },
+        {
+          "label": "Alternative appearances",
+          "left_right": true
+        },
+        {
+          "label": "Back",
+          "back": true
+        }
+      ]
+    },
+    "exit_confirm": {
+      "title": "Exit confirmation",
+      "items": [
+        {
+          "label": "Yes",
+          "action": "exit_game"
+        },
+        {
+          "label": "No",
+          "back": true
+        }
+      ]
+    }
+  }
+}

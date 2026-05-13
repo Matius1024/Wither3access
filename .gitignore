@@ -1,0 +1,6 @@
+vendor/*.dll
+logs/
+runtime/
+config/game_language.override.txt
+bin/
+obj/

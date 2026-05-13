@@ -1,0 +1,372 @@
+{
+  "locale": "pl-PL",
+  "target_processes": [
+    "witcher3.exe"
+  ],
+  "target_titles": [
+    "The Witcher 3",
+    "Wiedźmin 3",
+    "Wiedzmin 3"
+  ],
+  "start_menu": "main",
+  "messages": {
+    "ready_wait": "Companion dostępności Wiedźmina 3 uruchomiony. Gdy pojawi się menu główne, naciśnij F12.",
+    "companion_ready_format": "Companion dostępności Wiedźmina 3 uruchomiony. {0}",
+    "config_reloaded_format": "Konfiguracja przeładowana. {0}",
+    "config_reload_failed_format": "Nie udało się przeładować konfiguracji. {0}",
+    "mouse_mode_on": "Tryb myszy włączony.",
+    "mouse_mode_off": "Tryb myszy wyłączony.",
+    "no_label": "Pozycja bez etykiety",
+    "no_items": "Brak pozycji menu",
+    "position_format": "{0} z {1}",
+    "list_format": "{0}. Pozycje: {1}.",
+    "main_menu": "Menu główne.",
+    "activate_format": "Aktywuję: {0}.",
+    "missing_submenu_format": "{0}. Brak modelu podmenu {1}.",
+    "value_change_format": "{0}. Zmiana wartości: {1}.",
+    "left": "w lewo",
+    "right": "w prawo",
+    "mouse_position_format": "Pozycja myszy: x {0:0.000}, y {1:0.000}.",
+    "mouse_position_failed": "Nie udało się odczytać pozycji myszy.",
+    "calibration_point_format": "Punkt kliknięcia: {0}. x {1:0.000}, y {2:0.000}.",
+    "companion_exit": "Companion zamykany.",
+    "game_closed": "Gra zamknięta. Companion zamykany.",
+    "game_not_started": "Gra nie wystartowała. Companion zamykany."
+  },
+  "menus": {
+    "main": {
+      "title": "Menu główne",
+      "pointer": {
+        "x": 0.50,
+        "first_y": 0.38,
+        "step_y": 0.055
+      },
+      "items": [
+        {
+          "label": "Kontynuuj",
+          "action": "continue"
+        },
+        {
+          "label": "Nowa gra",
+          "enter": "new_game"
+        },
+        {
+          "label": "Wczytaj grę",
+          "enter": "load_game"
+        },
+        {
+          "label": "Opcje",
+          "enter": "options"
+        },
+        {
+          "label": "Dodatkowa zawartość",
+          "enter": "dlc"
+        },
+        {
+          "label": "Moje nagrody",
+          "action": "my_rewards"
+        },
+        {
+          "label": "Twórcy",
+          "action": "credits"
+        },
+        {
+          "label": "Wyjście",
+          "enter": "exit_confirm"
+        }
+      ]
+    },
+    "new_game": {
+      "title": "Nowa gra",
+      "items": [
+        {
+          "label": "Tylko historia",
+          "action": "new_game_difficulty"
+        },
+        {
+          "label": "Historia i miecz",
+          "action": "new_game_difficulty"
+        },
+        {
+          "label": "Krew, pot i łzy",
+          "action": "new_game_difficulty"
+        },
+        {
+          "label": "Droga ku zagładzie",
+          "action": "new_game_difficulty"
+        },
+        {
+          "label": "Powrót",
+          "back": true
+        }
+      ]
+    },
+    "load_game": {
+      "title": "Wczytaj grę",
+      "items": [
+        {
+          "label": "Lista zapisów gry. Użyj strzałek, aby wybrać zapis.",
+          "action": "dynamic_list"
+        },
+        {
+          "label": "Wczytaj zaznaczony zapis",
+          "action": "load_selected"
+        },
+        {
+          "label": "Usuń zaznaczony zapis",
+          "action": "delete_selected"
+        },
+        {
+          "label": "Powrót",
+          "back": true
+        }
+      ]
+    },
+    "options": {
+      "title": "Opcje",
+      "items": [
+        {
+          "label": "Rozgrywka",
+          "enter": "gameplay"
+        },
+        {
+          "label": "Obraz",
+          "enter": "display"
+        },
+        {
+          "label": "Grafika",
+          "enter": "graphics"
+        },
+        {
+          "label": "Dźwięk",
+          "enter": "audio"
+        },
+        {
+          "label": "Sterowanie",
+          "enter": "controls"
+        },
+        {
+          "label": "Język",
+          "enter": "language"
+        },
+        {
+          "label": "Powrót",
+          "back": true
+        }
+      ]
+    },
+    "gameplay": {
+      "title": "Opcje rozgrywki",
+      "items": [
+        {
+          "label": "Poziom trudności",
+          "left_right": true
+        },
+        {
+          "label": "Samouczki",
+          "left_right": true
+        },
+        {
+          "label": "Automatyczne dobywanie miecza",
+          "left_right": true
+        },
+        {
+          "label": "Alternatywny wygląd postaci",
+          "left_right": true
+        },
+        {
+          "label": "Powrót",
+          "back": true
+        }
+      ]
+    },
+    "display": {
+      "title": "Opcje obrazu",
+      "items": [
+        {
+          "label": "Gamma",
+          "left_right": true
+        },
+        {
+          "label": "Pełny ekran",
+          "left_right": true
+        },
+        {
+          "label": "Rozdzielczość",
+          "left_right": true
+        },
+        {
+          "label": "Synchronizacja pionowa",
+          "left_right": true
+        },
+        {
+          "label": "Limit klatek na sekundę",
+          "left_right": true
+        },
+        {
+          "label": "Powrót",
+          "back": true
+        }
+      ]
+    },
+    "graphics": {
+      "title": "Opcje grafiki",
+      "items": [
+        {
+          "label": "Preset jakości grafiki",
+          "left_right": true
+        },
+        {
+          "label": "Ray tracing",
+          "left_right": true
+        },
+        {
+          "label": "Jakość tekstur",
+          "left_right": true
+        },
+        {
+          "label": "Jakość cieni",
+          "left_right": true
+        },
+        {
+          "label": "Gęstość trawy",
+          "left_right": true
+        },
+        {
+          "label": "Zastosuj",
+          "action": "apply"
+        },
+        {
+          "label": "Powrót",
+          "back": true
+        }
+      ]
+    },
+    "audio": {
+      "title": "Opcje dźwięku",
+      "items": [
+        {
+          "label": "Głośność główna",
+          "left_right": true
+        },
+        {
+          "label": "Muzyka",
+          "left_right": true
+        },
+        {
+          "label": "Efekty dźwiękowe",
+          "left_right": true
+        },
+        {
+          "label": "Dialogi",
+          "left_right": true
+        },
+        {
+          "label": "Tryb dynamicznego zakresu dźwięku",
+          "left_right": true
+        },
+        {
+          "label": "Powrót",
+          "back": true
+        }
+      ]
+    },
+    "controls": {
+      "title": "Sterowanie",
+      "items": [
+        {
+          "label": "Schemat sterowania",
+          "left_right": true
+        },
+        {
+          "label": "Czułość kamery",
+          "left_right": true
+        },
+        {
+          "label": "Odwróć oś Y",
+          "left_right": true
+        },
+        {
+          "label": "Przypisanie klawiszy",
+          "enter": "keybindings"
+        },
+        {
+          "label": "Powrót",
+          "back": true
+        }
+      ]
+    },
+    "keybindings": {
+      "title": "Przypisanie klawiszy",
+      "items": [
+        {
+          "label": "Lista akcji i przypisanych klawiszy. Użyj strzałek, Enter zmienia klawisz.",
+          "action": "dynamic_key_list"
+        },
+        {
+          "label": "Przywróć domyślne",
+          "action": "restore_defaults"
+        },
+        {
+          "label": "Powrót",
+          "back": true
+        }
+      ]
+    },
+    "language": {
+      "title": "Język",
+      "items": [
+        {
+          "label": "Język napisów",
+          "left_right": true
+        },
+        {
+          "label": "Język dialogów",
+          "left_right": true
+        },
+        {
+          "label": "Napisy",
+          "left_right": true
+        },
+        {
+          "label": "Powrót",
+          "back": true
+        }
+      ]
+    },
+    "dlc": {
+      "title": "Dodatkowa zawartość",
+      "items": [
+        {
+          "label": "Serca z kamienia",
+          "action": "dlc_info"
+        },
+        {
+          "label": "Krew i wino",
+          "action": "dlc_info"
+        },
+        {
+          "label": "Alternatywne wyglądy",
+          "left_right": true
+        },
+        {
+          "label": "Powrót",
+          "back": true
+        }
+      ]
+    },
+    "exit_confirm": {
+      "title": "Potwierdzenie wyjścia",
+      "items": [
+        {
+          "label": "Tak",
+          "action": "exit_game"
+        },
+        {
+          "label": "Nie",
+          "back": true
+        }
+      ]
+    }
+  }
+}

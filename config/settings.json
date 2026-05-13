@@ -1,0 +1,18 @@
+{
+  "menu_config": "config/menus.pl.json",
+  "language_configs": {
+    "en": "config/menus.en.json",
+    "pl": "config/menus.pl.json"
+  },
+  "language_sources": [
+    "config/game_language.override.txt",
+    "%USERPROFILE%\\Documents\\The Witcher 3\\user.settings",
+    "%USERPROFILE%\\Documents\\The Witcher 3\\dx12user.settings"
+  ],
+  "speak_when_unfocused": false,
+  "wait_for_ready": true,
+  "mouse_mode": false,
+  "exit_when_game_closes": true,
+  "exit_if_game_never_starts": false,
+  "game_start_timeout_seconds": 120
+}
