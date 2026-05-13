@@ -99,7 +99,7 @@ Replace-Once `
 Replace-Once `
     -Path $ingameMenu `
     -Needle "`tevent  OnOptionSelectionChanged( optionName : name, value : bool)`r`n`t{" `
-    -Replacement "`tevent  OnOptionSelectionChanged( optionName : name, value : bool)`r`n`t{`r`n`t`tif(value && m_w3AccessOptionsDepth == 0)`r`n`t`t{`r`n`t`t`tW3Access_OptionFocused(optionName);`r`n`t`t}"
+    -Replacement "`tevent  OnOptionSelectionChanged( optionName : name, value : bool)`r`n`t{`r`n`t`tif(value)`r`n`t`t{`r`n`t`t`tW3Access_OptionFocused(optionName);`r`n`t`t}"
 
 Replace-Once `
     -Path $ingameMenu `

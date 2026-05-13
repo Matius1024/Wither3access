@@ -423,6 +423,15 @@ namespace Wither3Access
                 return;
             }
 
+            if (parts[0].Equals("UPDATE", StringComparison.OrdinalIgnoreCase))
+            {
+                if (parts.Length > 1)
+                {
+                    UpdateTrackedMenuItem(NormalizeSpeechText(UnescapeMenuToken(parts[1])));
+                }
+                return;
+            }
+
             if (parts[0].Equals("CLEAR", StringComparison.OrdinalIgnoreCase))
             {
                 ClearTrackedMenu();
@@ -499,6 +508,62 @@ namespace Wither3Access
             }
             logger.Write("Speak menu focus: " + message);
             SpeakGameMessage(message);
+        }
+
+        private static void UpdateTrackedMenuItem(string label)
+        {
+            if (string.IsNullOrEmpty(label) || trackedMenuItems.Count == 0)
+            {
+                return;
+            }
+
+            int index = FindTrackedMenuItemIndex(label);
+            if (index < 0 &&
+                trackedMenuIndex >= 0 &&
+                trackedMenuIndex < trackedMenuItems.Count)
+            {
+                index = trackedMenuIndex;
+            }
+
+            if (index < 0)
+            {
+                logger.Write("Menu update skipped. No matching item for: " + label);
+                return;
+            }
+
+            trackedMenuItems[index] = label;
+            logger.Write("Menu item updated: " + label + " at " + index.ToString());
+        }
+
+        private static int FindTrackedMenuItemIndex(string label)
+        {
+            string labelKey = GetMenuItemKey(label);
+            if (string.IsNullOrEmpty(labelKey))
+            {
+                return -1;
+            }
+
+            for (int index = 0; index < trackedMenuItems.Count; index++)
+            {
+                if (string.Equals(GetMenuItemKey(trackedMenuItems[index]), labelKey, StringComparison.OrdinalIgnoreCase))
+                {
+                    return index;
+                }
+            }
+
+            return -1;
+        }
+
+        private static string GetMenuItemKey(string label)
+        {
+            if (string.IsNullOrEmpty(label))
+            {
+                return "";
+            }
+
+            int separator = label.IndexOf(':');
+            string key = separator > 0 ? label.Substring(0, separator) : label;
+            return NormalizeSpeechText(key).Trim().TrimEnd('.');
         }
 
         private static void SetTrackedMenu(string title, IEnumerable<string> items, int index)

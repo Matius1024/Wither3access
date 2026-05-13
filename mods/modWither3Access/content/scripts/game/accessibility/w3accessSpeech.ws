@@ -161,6 +161,11 @@ function W3Access_GetMenuItemCurrentValue(item : CScriptedFlashObject) : string
 	value = item.GetMemberFlashString("current");
 	if(value != "")
 	{
+		label = W3Access_FormatMenuItemConfigValue(item, value);
+		if(label != "")
+		{
+			return label;
+		}
 		if(value == "0")
 		{
 			label = item.GetMemberFlashString("offString");
@@ -193,13 +198,120 @@ function W3Access_GetMenuItemCurrentValue(item : CScriptedFlashObject) : string
 		return value;
 	}
 	value = item.GetMemberFlashString("value");
-	if(value != "") return value;
+	if(value != "")
+	{
+		label = W3Access_FormatMenuItemConfigValue(item, value);
+		return label != "" ? label : value;
+	}
 	value = item.GetMemberFlashString("currentValue");
-	if(value != "") return value;
+	if(value != "")
+	{
+		label = W3Access_FormatMenuItemConfigValue(item, value);
+		return label != "" ? label : value;
+	}
 	value = item.GetMemberFlashString("keybindValue");
 	if(value != "") return value;
 	value = item.GetMemberFlashString("inputValue");
 	if(value != "") return value;
+
+	value = W3Access_GetMenuItemConfigCurrentValue(item);
+	if(value != "")
+	{
+		return value;
+	}
+
+	return "";
+}
+
+function W3Access_FormatMenuItemConfigValue(item : CScriptedFlashObject, optionValue : string) : string
+{
+	var configWrapper : CInGameConfigWrapper;
+	var candidateId : string;
+	var candidateTag : int;
+	var groupIdx : int;
+	var varIdx : int;
+	var groupsNum : int;
+	var varsNum : int;
+	var groupName : name;
+	var currentName : name;
+
+	configWrapper = (CInGameConfigWrapper)theGame.GetInGameConfigWrapper();
+	if(!configWrapper || !item || optionValue == "")
+	{
+		return "";
+	}
+
+	candidateId = item.GetMemberFlashString("id");
+	candidateTag = item.GetMemberFlashUInt("tag");
+	if(candidateId == "" && candidateTag == 0)
+	{
+		return "";
+	}
+
+	groupsNum = configWrapper.GetGroupsNum();
+	for(groupIdx = 0; groupIdx < groupsNum; groupIdx += 1)
+	{
+		groupName = configWrapper.GetGroupName(groupIdx);
+		varsNum = configWrapper.GetVarsNumByGroupName(groupName);
+		for(varIdx = 0; varIdx < varsNum; varIdx += 1)
+		{
+			currentName = configWrapper.GetVarNameByGroupName(groupName, varIdx);
+			if((candidateId != "" && candidateId == NameToString(currentName)) ||
+				(candidateTag != 0 && candidateTag == NameToFlashUInt(currentName)))
+			{
+				return W3Access_GetOptionValueLabel(groupName, currentName, optionValue);
+			}
+		}
+	}
+
+	return "";
+}
+
+function W3Access_GetMenuItemConfigCurrentValue(item : CScriptedFlashObject) : string
+{
+	var configWrapper : CInGameConfigWrapper;
+	var candidateId : string;
+	var candidateTag : int;
+	var groupIdx : int;
+	var varIdx : int;
+	var groupsNum : int;
+	var varsNum : int;
+	var groupName : name;
+	var currentName : name;
+	var value : string;
+
+	configWrapper = (CInGameConfigWrapper)theGame.GetInGameConfigWrapper();
+	if(!configWrapper || !item)
+	{
+		return "";
+	}
+
+	candidateId = item.GetMemberFlashString("id");
+	candidateTag = item.GetMemberFlashUInt("tag");
+	if(candidateId == "" && candidateTag == 0)
+	{
+		return "";
+	}
+
+	groupsNum = configWrapper.GetGroupsNum();
+	for(groupIdx = 0; groupIdx < groupsNum; groupIdx += 1)
+	{
+		groupName = configWrapper.GetGroupName(groupIdx);
+		varsNum = configWrapper.GetVarsNumByGroupName(groupName);
+		for(varIdx = 0; varIdx < varsNum; varIdx += 1)
+		{
+			currentName = configWrapper.GetVarNameByGroupName(groupName, varIdx);
+			if((candidateId != "" && candidateId == NameToString(currentName)) ||
+				(candidateTag != 0 && candidateTag == NameToFlashUInt(currentName)))
+			{
+				value = configWrapper.GetVarValue(groupName, currentName);
+				if(value != "")
+				{
+					return W3Access_GetOptionValueLabel(groupName, currentName, value);
+				}
+			}
+		}
+	}
 
 	return "";
 }
@@ -415,6 +527,14 @@ function W3Access_MenuReset()
 	LogChannel('W3ACCESS', "W3ACCESS_MENU|RESET");
 }
 
+function W3Access_MenuUpdateCurrent(label : string)
+{
+	if(label != "")
+	{
+		LogChannel('W3ACCESS', "W3ACCESS_MENU|UPDATE|" + W3Access_EscapeMenuToken(label));
+	}
+}
+
 function W3Access_ItemActivated(actionType : int, menuTag : int)
 {
 	W3Access_Speak(W3Access_GetActionTypeLabel(actionType, menuTag));
@@ -435,11 +555,14 @@ function W3Access_OptionFocused(optionName : name)
 	var groupName : name;
 	var currentName : name;
 	var value : string;
+	var message : string;
 
 	configWrapper = (CInGameConfigWrapper)theGame.GetInGameConfigWrapper();
 	if(!configWrapper)
 	{
-		W3Access_Speak(W3Access_LocalizeName(optionName));
+		message = W3Access_LocalizeName(optionName);
+		W3Access_MenuUpdateCurrent(message);
+		W3Access_Speak(message);
 		return;
 	}
 
@@ -454,30 +577,37 @@ function W3Access_OptionFocused(optionName : name)
 			if(currentName == optionName)
 			{
 				value = configWrapper.GetVarValue(groupName, optionName);
-				W3Access_Speak(W3Access_FormatOption(groupName, optionName, value));
+				message = W3Access_FormatOption(groupName, optionName, value);
+				W3Access_MenuUpdateCurrent(message);
+				W3Access_Speak(message);
 				return;
 			}
 		}
 	}
 
-	W3Access_Speak(W3Access_LocalizeName(optionName));
+	message = W3Access_LocalizeName(optionName);
+	W3Access_MenuUpdateCurrent(message);
+	W3Access_Speak(message);
 }
 
 function W3Access_OptionValueChanged(groupId : int, optionName : name, optionValue : string)
 {
 	var configWrapper : CInGameConfigWrapper;
 	var groupName : name;
+	var message : string;
 
 	configWrapper = (CInGameConfigWrapper)theGame.GetInGameConfigWrapper();
 	if(configWrapper)
 	{
 		groupName = configWrapper.GetGroupName(groupId);
-		W3Access_Speak(W3Access_FormatOption(groupName, optionName, optionValue));
+		message = W3Access_FormatOption(groupName, optionName, optionValue);
 	}
 	else
 	{
-		W3Access_Speak(W3Access_LocalizeName(optionName) + ": " + optionValue);
+		message = W3Access_LocalizeName(optionName) + ": " + optionValue;
 	}
+	W3Access_MenuUpdateCurrent(message);
+	W3Access_Speak(message);
 }
 
 function W3Access_OptionValueChangedByName(optionName : name, optionValue : string)
@@ -489,11 +619,14 @@ function W3Access_OptionValueChangedByName(optionName : name, optionValue : stri
 	var varsNum : int;
 	var groupName : name;
 	var currentName : name;
+	var message : string;
 
 	configWrapper = (CInGameConfigWrapper)theGame.GetInGameConfigWrapper();
 	if(!configWrapper)
 	{
-		W3Access_Speak(W3Access_LocalizeName(optionName) + ": " + optionValue);
+		message = W3Access_LocalizeName(optionName) + ": " + optionValue;
+		W3Access_MenuUpdateCurrent(message);
+		W3Access_Speak(message);
 		return;
 	}
 
@@ -507,13 +640,17 @@ function W3Access_OptionValueChangedByName(optionName : name, optionValue : stri
 			currentName = configWrapper.GetVarNameByGroupName(groupName, varIdx);
 			if(currentName == optionName)
 			{
-				W3Access_Speak(W3Access_FormatOption(groupName, optionName, optionValue));
+				message = W3Access_FormatOption(groupName, optionName, optionValue);
+				W3Access_MenuUpdateCurrent(message);
+				W3Access_Speak(message);
 				return;
 			}
 		}
 	}
 
-	W3Access_Speak(W3Access_LocalizeName(optionName) + ": " + optionValue);
+	message = W3Access_LocalizeName(optionName) + ": " + optionValue;
+	W3Access_MenuUpdateCurrent(message);
+	W3Access_Speak(message);
 }
 
 function W3Access_FormatOption(groupName : name, optionName : name, optionValue : string) : string

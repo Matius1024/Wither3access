@@ -2050,7 +2050,7 @@ class CR4IngameMenu extends CR4MenuBase
 	
 	event  OnOptionSelectionChanged( optionName : name, value : bool)
 	{
-		if(value && m_w3AccessOptionsDepth == 0)
+		if(value)
 		{
 			W3Access_OptionFocused(optionName);
 		}
