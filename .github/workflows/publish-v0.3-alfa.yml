@@ -1,0 +1,31 @@
+name: Publish 0.3.alfa Release
+
+on:
+  push:
+    branches:
+      - release-v0.3-alfa-runner-20260515135048
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Create release v0.3.alfa
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          TAG: v0.3.alfa
+          ASSET: dist/Wither3.access-0.3.alfa.zip
+        shell: bash
+        run: |
+          set -euo pipefail
+          if gh release view "$TAG" --repo "$REPO" >/dev/null 2>&1; then
+            gh release upload "$TAG" "$ASSET" --repo "$REPO" --clobber
+          else
+            gh release create "$TAG" "$ASSET" --repo "$REPO" --title "Wither3.access 0.3.alfa" --notes "Wydanie 0.3.alfa. Zawiera paczk© instalacyjn¥ Wither3.access-0.3.alfa.zip." --prerelease
+          fi
