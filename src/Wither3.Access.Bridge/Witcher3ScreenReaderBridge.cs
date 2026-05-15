@@ -793,57 +793,7 @@ namespace Wither3Access
                 .Replace("\n", " ")
                 .Replace("\t", " ");
 
-            return RestorePolishSpeechText(CollapseWhitespace(text).Trim());
-        }
-
-        private static string RestorePolishSpeechText(string value)
-        {
-            if (string.IsNullOrEmpty(value))
-            {
-                return value;
-            }
-
-            return value
-                .Replace("Menu glowne", "Menu główne")
-                .Replace("Ustawienia dzwieku", "Ustawienia dźwięku")
-                .Replace("Wszystkie dzwieki", "Wszystkie dźwięki")
-                .Replace("dzwieku", "dźwięku")
-                .Replace("dzwieki", "dźwięki")
-                .Replace("Wczytaj gre", "Wczytaj grę")
-                .Replace("Wznow gre", "Wznów grę")
-                .Replace("Zamknij gre", "Zamknij grę")
-                .Replace("gre.", "grę.")
-                .Replace("Od poczatku", "Od początku")
-                .Replace("poczatku", "początku")
-                .Replace("Po prostu opowiesc", "Po prostu opowieść")
-                .Replace("Miecz i opowiesc", "Miecz i opowieść")
-                .Replace("opowiesc", "opowieść")
-                .Replace("Krew, pot i lzy", "Krew, pot i łzy")
-                .Replace("Droga ku zagladzie", "Droga ku zagładzie")
-                .Replace("Wybor jezyka", "Wybór języka")
-                .Replace("Jezyk napisow", "Język napisów")
-                .Replace("Jezyk dialogow", "Język dialogów")
-                .Replace("jezyka", "języka")
-                .Replace("napisow", "napisów")
-                .Replace("dialogow", "dialogów")
-                .Replace("Poziom trudnosci", "Poziom trudności")
-                .Replace("trudnosci", "trudności")
-                .Replace("Czulosc", "Czułość")
-                .Replace("czulosc", "czułość")
-                .Replace("Odwrocenie", "Odwrócenie")
-                .Replace("odwrocenie", "odwrócenie")
-                .Replace("wplywa", "wpływa")
-                .Replace("wcisnieciu", "wciśnięciu")
-                .Replace("drazka", "drążka")
-                .Replace("Intensywnosc", "Intensywność")
-                .Replace("intensywnosc", "intensywność")
-                .Replace("efektow", "efektów")
-                .Replace("Zamien", "Zamień")
-                .Replace("wlaczone", "włączone")
-                .Replace("wylaczone", "wyłączone")
-                .Replace("Skroty", "Skróty")
-                .Replace("wlaczony", "włączony")
-                .Replace("powtorz", "powtórz");
+            return CollapseWhitespace(text).Trim();
         }
 
         private static string StripAngleTags(string value)

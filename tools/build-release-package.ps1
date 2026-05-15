@@ -44,7 +44,6 @@ try {
 
     Copy-RequiredItem (Join-Path $projectRoot "README.md") (Join-Path $stagingRoot "README.md")
     Copy-RequiredItem (Join-Path $projectRoot "INSTALL.md") (Join-Path $stagingRoot "INSTALL.md")
-    Copy-RequiredItem (Join-Path $projectRoot "CHANGELOG.md") (Join-Path $stagingRoot "CHANGELOG.md")
     Copy-RequiredItem (Join-Path $projectRoot "VERSION") (Join-Path $stagingRoot "VERSION")
     Copy-RequiredItem (Join-Path $projectRoot "Witcher3AccessibleLauncher.exe") (Join-Path $stagingRoot "Witcher3AccessibleLauncher.exe")
     Copy-RequiredItem (Join-Path $projectRoot "Witcher3ScreenReaderBridge.exe") (Join-Path $runtimeDir "Witcher3ScreenReaderBridge.exe")

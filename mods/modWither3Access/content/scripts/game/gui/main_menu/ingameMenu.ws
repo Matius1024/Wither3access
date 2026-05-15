@@ -962,7 +962,14 @@ class CR4IngameMenu extends CR4MenuBase
 	protected function RestoreW3AccessRootMenu() : void
 	{
 		m_w3AccessOptionsDepth = 0;
-		W3Access_MenuPop();
+		if (m_w3AccessMenuData)
+		{
+			W3Access_RootMenuItemsReady(m_w3AccessMenuData, isMainMenu ? "Menu glowne" : "Menu pauzy");
+		}
+		else
+		{
+			W3Access_MenuReset();
+		}
 	}
 
 	public function HandleLoadGameFailed():void

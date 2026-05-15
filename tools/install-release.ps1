@@ -6,7 +6,6 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
 $projectRoot = (Get-Item -LiteralPath $PSScriptRoot).Parent.FullName
-$version = (Get-Content -Raw -LiteralPath (Join-Path $projectRoot "VERSION")).Trim()
 $dx12Exe = Join-Path $GameDir "bin\x64_dx12\witcher3.exe"
 $dx11Exe = Join-Path $GameDir "bin\x64\witcher3.exe"
 
@@ -58,7 +57,7 @@ if (Test-Path -LiteralPath $sourceVendor -PathType Leaf) {
     Copy-Item -LiteralPath $sourceVendor -Destination (Join-Path $targetVendor "nvdaControllerClient64.dll") -Force
 }
 
-Write-Output "Zainstalowano Wither3.access ${version}:"
+Write-Output "Zainstalowano Wither3.access 0.3.alfa:"
 Write-Output "  Launcher: $(Join-Path $GameDir "Witcher3AccessibleLauncher.exe")"
 Write-Output "  Runtime:  $targetRuntime"
 Write-Output "  Mod:      $(Join-Path $targetMods "modWither3Access")"
